@@ -23,6 +23,7 @@ public enum ERROR_CODE {
     UNAUTHORIZED(1004, "You do not have permission"),
     INVALID_USERNAME(1005, "Username must be at least {min} characters"),
     INVALID_PASSWORD(1006, "Password must be at least {min} characters"),
+    INVALID_TOKEN(1007, "Invalid token"),
 
     /**
      * Other Exception
