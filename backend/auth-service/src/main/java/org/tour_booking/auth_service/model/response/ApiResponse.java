@@ -1,4 +1,4 @@
-package api;
+package org.tour_booking.auth_service.model.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
