@@ -1,0 +1,31 @@
+package org.tour_booking.merchant_service.model.entity;
+
+import jakarta.persistence.*;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+import org.tour_booking.merchant_service.constant.PERMISSION;
+
+/**
+ * Basic information about the agency
+ *
+ * @Author: luunguyen301297
+ * @LastModified: 8/19/2024
+ */
+@Getter
+@Setter
+@Builder
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "permission")
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class PermissionEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Integer id;
+
+    @Column(length = 100, nullable = false, unique = true)
+    String name;
+
+}

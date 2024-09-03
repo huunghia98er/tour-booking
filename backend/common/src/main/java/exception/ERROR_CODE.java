@@ -30,6 +30,8 @@ public enum ERROR_CODE {
      **/
     INVALID_PAGE_SIZE(4002, "Invalid page size"),
     INVALID_PAGE_NUMBER(4003, "Invalid page number"),
+    MERCHANT_EXISTED(4004, "Merchant existed"),
+    MERCHANT_NOT_EXISTED(4005, "Merchant not existed"),
     ;
 
     private final int code;
