@@ -3,7 +3,7 @@ package org.tour_booking.booking_service.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.tour_booking.booking_service.models.entity.Booking;
-import org.tour_booking.booking_service.models.request.CreateBookingRequest;
+import org.tour_booking.booking_service.models.request.BookingRequest;
 import org.tour_booking.booking_service.repository.BookingRepository;
 import org.tour_booking.booking_service.utils.BookingUtils;
 
@@ -23,7 +23,7 @@ public class BookingServiceImpl implements BookingService {
     private final KafkaService kafkaService;
 
     @Override
-    public String createBooking(CreateBookingRequest request) {
+    public String createBooking(BookingRequest request) {
         Booking entityRequest = bookingUtils.convertRequestToEntity(request);
 
         Booking booking = bookingRepository.save(entityRequest);

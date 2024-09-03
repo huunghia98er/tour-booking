@@ -2,7 +2,7 @@ package org.tour_booking.booking_service.service;
 
 import org.springframework.stereotype.Service;
 import org.tour_booking.booking_service.models.entity.Booking;
-import org.tour_booking.booking_service.models.request.CreateBookingRequest;
+import org.tour_booking.booking_service.models.request.BookingRequest;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import java.util.List;
 
 @Service
 public interface BookingService {
-    String createBooking(CreateBookingRequest request);
+    String createBooking(BookingRequest request);
 
     String updateBooking();
 

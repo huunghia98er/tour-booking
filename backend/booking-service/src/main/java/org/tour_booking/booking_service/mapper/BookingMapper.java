@@ -2,7 +2,7 @@ package org.tour_booking.booking_service.mapper;
 
 import org.mapstruct.Mapper;
 import org.tour_booking.booking_service.models.entity.Booking;
-import org.tour_booking.booking_service.models.request.CreateBookingRequest;
+import org.tour_booking.booking_service.models.request.BookingRequest;
 
 /**
  * @Author: HuuNghia
@@ -12,6 +12,6 @@ import org.tour_booking.booking_service.models.request.CreateBookingRequest;
 @Mapper(componentModel = "spring")
 public interface BookingMapper {
 
-    Booking fromRequestToEntity(CreateBookingRequest request);
+    Booking fromRequestToEntity(BookingRequest request);
 
 }
