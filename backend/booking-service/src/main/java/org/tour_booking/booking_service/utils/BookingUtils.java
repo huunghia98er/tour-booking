@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.tour_booking.booking_service.constant.BookingStatus;
 import org.tour_booking.booking_service.mapper.BookingMapper;
-import org.tour_booking.booking_service.mapper.ParticipantMapper;
 import org.tour_booking.booking_service.models.entity.Booking;
 import org.tour_booking.booking_service.models.request.BookingRequest;
 
@@ -18,7 +17,6 @@ import org.tour_booking.booking_service.models.request.BookingRequest;
 public class BookingUtils {
     private static final String BOOKING_CODE_PREFIX = "STB";
     private final BookingMapper bookingMapper;
-    private final ParticipantMapper participantMapper;
 
     public Booking convertRequestToEntity(BookingRequest request) {
         Booking booking = bookingMapper.fromRequestToEntity(request);
@@ -28,7 +26,6 @@ public class BookingUtils {
         booking.setPaid(false);
         booking.setDeleted(false);
         booking.setCreatedBy(request.getCreatedBy());
-        booking.setParticipants(participantMapper.fromRequestToEntity(request.getParticipants()));
 
         return booking;
     }
