@@ -27,6 +27,12 @@ public class BookingUtils {
         booking.setDeleted(false);
         booking.setCreatedBy(request.getCreatedBy());
 
+        booking.getParticipants().forEach(oderItem -> {
+            if (oderItem.getBooking() == null) {
+                oderItem.setBooking(booking);
+            }
+        });
+
         return booking;
     }
 

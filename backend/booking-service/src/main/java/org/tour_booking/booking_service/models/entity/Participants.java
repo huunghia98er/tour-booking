@@ -2,6 +2,7 @@ package org.tour_booking.booking_service.models.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import model.BaseEntity;
 
 import static jakarta.persistence.CascadeType.ALL;
 
@@ -17,7 +18,7 @@ import static jakarta.persistence.CascadeType.ALL;
 @AllArgsConstructor
 @Entity
 @Table(name = "participants")
-public class Participants {
+public class Participants extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

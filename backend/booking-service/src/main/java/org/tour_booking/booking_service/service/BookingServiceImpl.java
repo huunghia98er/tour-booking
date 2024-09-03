@@ -28,7 +28,7 @@ public class BookingServiceImpl implements BookingService {
 
         Booking booking = bookingRepository.save(entityRequest);
 
-        kafkaService.sendMessage(booking);
+//        kafkaService.sendMessage(booking);
 
         return booking.getBookingCode();
     }
