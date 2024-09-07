@@ -1,6 +1,8 @@
 package org.tour_booking.auth_service.controller;
 
+import api.ApiResponse;
 import com.nimbusds.jose.JOSEException;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -9,10 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.tour_booking.auth_service.model.request.AuthenticationRequest;
-import org.tour_booking.auth_service.model.request.LogoutRequest;
 import org.tour_booking.auth_service.model.request.RefreshRequest;
 import org.tour_booking.auth_service.model.request.ValidTokenRequest;
-import org.tour_booking.auth_service.model.response.ApiResponse;
 import org.tour_booking.auth_service.model.response.AuthenticationResponse;
 import org.tour_booking.auth_service.model.response.ValidTokenResponse;
 import org.tour_booking.auth_service.service.AuthenticationService;
@@ -48,8 +48,8 @@ public class AuthenticationController {
     }
 
     @PostMapping("/logout")
-    ApiResponse<Void> logout(@RequestBody LogoutRequest request) throws ParseException, JOSEException {
-        authenticationService.logout(request);
+    ApiResponse<Void> logout(HttpServletRequest servletRequest) throws ParseException, JOSEException {
+        authenticationService.logout(servletRequest);
         return ApiResponse.<Void>builder().build();
     }
 

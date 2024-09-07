@@ -7,6 +7,7 @@ import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
 import exception.AppException;
 import exception.ERROR_CODE;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -15,13 +16,17 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
-import org.tour_booking.auth_service.model.entity.Account;
+import org.tour_booking.auth_service.model.entity.AccountEntity;
+import org.tour_booking.auth_service.model.entity.VerificationTokenEntity;
 import org.tour_booking.auth_service.repository.InvalidatedTokenRepository;
+import org.tour_booking.auth_service.repository.VerificationTokenRepository;
 
 import java.text.ParseException;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.Optional;
 import java.util.StringJoiner;
 import java.util.UUID;
 
@@ -38,16 +43,39 @@ public class TokenService {
     @NonFinal
     @Value("${jwt.signerKey}")
     String SIGNER_KEY;
+
     @NonFinal
     @Value("${jwt.valid-duration}")
     long VALID_DURATION;
+
     @NonFinal
     @Value("${jwt.refreshable-duration}")
     long REFRESHABLE_DURATION;
 
-    InvalidatedTokenRepository invalidTokenRepo;
+    static String TOKEN_PREFIX = "Bearer ";
+    static String PAYLOAD_USER_ID = "userId";
+    static String AUTHOR_HEADER_KEY = "Authorization";
+    static String AUTH_SCOPE = "scope";
+    static String PERMISSION_PREFIX = "PERMISSION_";
 
-    public String generateToken(Account account, boolean isAccessToken) {
+    InvalidatedTokenRepository invalidTokenRepo;
+    VerificationTokenRepository verificationTokenRepo;
+
+    public VerificationTokenEntity createVerificationToken(AccountEntity account) {
+        VerificationTokenEntity token = VerificationTokenEntity.builder()
+                .token(UUID.randomUUID().toString())
+                .account(account)
+                .expiryDate(LocalDateTime.now().plusDays(1))
+                .build();
+        return verificationTokenRepo.save(token);
+    }
+
+    public Optional<VerificationTokenEntity> getToken(String token) {
+        return verificationTokenRepo.findByToken(token);
+    }
+
+
+    public String generateToken(AccountEntity account, boolean isAccessToken) {
         JWSHeader header = new JWSHeader(JWSAlgorithm.HS512);
 
         long expiryTime = isAccessToken ? VALID_DURATION : REFRESHABLE_DURATION;
@@ -61,8 +89,8 @@ public class TokenService {
                 .issueTime(issueTime)
                 .expirationTime(expiryDate)
                 .jwtID(UUID.randomUUID().toString())
-                .claim("scope", this.buildScope(account))
-                .claim("userId", account.getId())
+                .claim(AUTH_SCOPE, this.buildScope(account))
+                .claim(PAYLOAD_USER_ID, account.getId())
                 .build();
 
         Payload payload = new Payload(jwtClaimsSet.toJSONObject());
@@ -100,13 +128,31 @@ public class TokenService {
         return signedJWT;
     }
 
-    private String buildScope(Account account) {
+    private String buildScope(AccountEntity account) {
         StringJoiner stringJoiner = new StringJoiner(" ");
         if (!CollectionUtils.isEmpty(account.getPermissions())) {
             account.getPermissions().forEach(permission
-                    -> stringJoiner.add("PERMISSION_" + permission.getName()));
+                    -> stringJoiner.add(PERMISSION_PREFIX + permission.getName()));
         }
         return stringJoiner.toString();
+    }
+
+    public String extractToken(HttpServletRequest request) {
+        String token = request.getHeader(AUTHOR_HEADER_KEY);
+        if (token != null && token.startsWith(TOKEN_PREFIX)) {
+            return token.substring(TOKEN_PREFIX.length());
+        }
+        throw new AppException(ERROR_CODE.INVALID_TOKEN);
+    }
+
+    public Long extractAccountIdFromToken(String token) {
+        try {
+            SignedJWT signedJWT = SignedJWT.parse(token);
+            JWTClaimsSet claims = signedJWT.getJWTClaimsSet();
+            return claims.getLongClaim(PAYLOAD_USER_ID);
+        } catch (ParseException e) {
+            throw new AppException(ERROR_CODE.INVALID_TOKEN);
+        }
     }
 
 }

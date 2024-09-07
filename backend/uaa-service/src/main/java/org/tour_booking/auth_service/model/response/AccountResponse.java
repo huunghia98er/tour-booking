@@ -3,7 +3,6 @@ package org.tour_booking.auth_service.model.response;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.tour_booking.auth_service.model.entity.Permission;
 
 import java.util.Set;
 
@@ -15,10 +14,12 @@ import java.util.Set;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class AccountResponse {
+
     Long id;
     String username;
     String email;
     String phone;
     boolean isActive;
-    Set<String> permissions;
+    Set<PermissionResponse> permissions;
+
 }

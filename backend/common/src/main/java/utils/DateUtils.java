@@ -1,4 +1,4 @@
-package util;
+package utils;
 
 import constant.ApplicationConstant;
 import lombok.AccessLevel;

@@ -68,12 +68,7 @@ public class MerchantEntity extends BaseEntity {
     @Column(name = "rejection_reason")
     String rejectionReason;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "account_merchant",
-            joinColumns = @JoinColumn(name = "merchant_id"),
-            inverseJoinColumns = @JoinColumn(name = "account_id")
-    )
+    @OneToMany(mappedBy = "merchant", cascade = CascadeType.ALL, orphanRemoval = true)
     Set<AccountEntity> accounts;
 
 }

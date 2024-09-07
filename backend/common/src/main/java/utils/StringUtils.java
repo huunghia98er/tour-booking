@@ -1,7 +1,11 @@
-package util;
+package utils;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class StringUtils {
@@ -40,4 +44,24 @@ public final class StringUtils {
         }
         return camelCase.toString();
     }
+
+    public static String generateUniqueString(int strLength) {
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        Random random = new Random();
+        Set<Character> usedCharacters = new HashSet<>();
+        StringBuilder uniqueString = new StringBuilder();
+
+        while (uniqueString.length() < strLength) {
+            int index = random.nextInt(characters.length());
+            char selectedChar = characters.charAt(index);
+
+            if (!usedCharacters.contains(selectedChar)) {
+                uniqueString.append(selectedChar);
+                usedCharacters.add(selectedChar);
+            }
+        }
+
+        return uniqueString.toString();
+    }
+
 }

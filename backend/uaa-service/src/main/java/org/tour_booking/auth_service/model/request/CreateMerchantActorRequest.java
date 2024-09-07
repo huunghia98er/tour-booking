@@ -1,4 +1,4 @@
-package org.tour_booking.merchant_service.model.response;
+package org.tour_booking.auth_service.model.request;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -16,7 +16,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class CreateMerchantActorResponse {
+public class CreateMerchantActorRequest {
 
     Long merchantId;
     List<Account> accounts;

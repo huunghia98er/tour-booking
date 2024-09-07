@@ -1,12 +1,12 @@
 package org.tour_booking.auth_service.controller;
 
+import api.ApiResponse;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import org.tour_booking.auth_service.model.request.PermissionRequest;
-import org.tour_booking.auth_service.model.response.ApiResponse;
 import org.tour_booking.auth_service.model.response.PermissionResponse;
 import org.tour_booking.auth_service.service.PermissionService;
 

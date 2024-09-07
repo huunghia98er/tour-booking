@@ -22,7 +22,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity(name = "merchant")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Merchant extends BaseEntity {
+public class MerchantEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,8 +49,9 @@ public class Merchant extends BaseEntity {
     @Column(name = "bank_account_holder_name")
     String bankAccountHolderName;
 
+    @Builder.Default
     @Column(name = "registration_date")
-    LocalDateTime registrationDate;
+    LocalDateTime registrationDate = LocalDateTime.now();
 
     @Builder.Default
     @Column(name = "verification_status")
@@ -61,17 +62,12 @@ public class Merchant extends BaseEntity {
 
     @Builder.Default
     @Column(name = "is_active")
-    boolean isActive = false;
+    Boolean isActive = false;
 
     @Column(name = "rejection_reason")
     String rejectionReason;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "account_merchant",
-            joinColumns = @JoinColumn(name = "merchant_id"),
-            inverseJoinColumns = @JoinColumn(name = "account_id")
-    )
-    Set<Account> accounts;
+    @OneToMany(mappedBy = "merchant", cascade = CascadeType.ALL, orphanRemoval = true)
+    Set<AccountEntity> accounts;
 
 }

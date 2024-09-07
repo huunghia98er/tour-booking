@@ -17,8 +17,8 @@ import java.util.Objects;
 @Slf4j
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(value = Exception.class)
-    ResponseEntity<ApiResponse<?>> handlingRuntimeException(RuntimeException e) {
+    @ExceptionHandler(value = RuntimeException.class)
+    public ResponseEntity<ApiResponse<?>> handlingRuntimeException(RuntimeException e) {
         log.error(e.getMessage());
 
         ApiResponse<?> apiResponse = ApiResponse.builder()

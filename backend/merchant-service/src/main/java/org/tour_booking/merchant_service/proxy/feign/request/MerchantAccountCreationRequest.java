@@ -1,4 +1,4 @@
-package org.tour_booking.merchant_service.feign.request;
+package org.tour_booking.merchant_service.proxy.feign.request;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -9,9 +9,12 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class AccountCreationRequest {
+public class MerchantAccountCreationRequest {
+
+    Long merchantId;
     String username;
     String password;
     String email;
     String phone;
+
 }

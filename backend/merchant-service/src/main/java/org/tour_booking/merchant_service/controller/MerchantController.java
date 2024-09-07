@@ -11,12 +11,14 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 import org.tour_booking.merchant_service.model.request.AdminListMerchantRequest;
 import org.tour_booking.merchant_service.model.request.ApproveMerchantRequest;
+import org.tour_booking.merchant_service.model.request.CreateMerchantActorRequest;
 import org.tour_booking.merchant_service.model.request.RegisterMerchantRequest;
 import org.tour_booking.merchant_service.model.response.AdminListMerchantResponse;
 import org.tour_booking.merchant_service.model.response.ApproveMerchantResponse;
+import org.tour_booking.merchant_service.model.response.CreateMerchantActorResponse;
 import org.tour_booking.merchant_service.model.response.RegisterMerchantResponse;
 import org.tour_booking.merchant_service.service.MerchantService;
-import util.SimplePage;
+import utils.SimplePage;
 
 @RestController
 @RequestMapping("/merchant")
@@ -44,6 +46,17 @@ public class MerchantController {
     ApiResponse<ApproveMerchantResponse> approveMerchant(@RequestBody @Valid ApproveMerchantRequest request) {
         var response = merchantService.approve(request);
         return ApiResponse.<ApproveMerchantResponse>builder()
+                .data(response)
+                .build();
+    }
+
+    /**
+     * Create Merchant's Actors
+     */
+    @PostMapping("/actors/create")
+    ApiResponse<CreateMerchantActorResponse> createActors(@RequestBody @Valid CreateMerchantActorRequest request) {
+        var response = merchantService.createActor(request);
+        return ApiResponse.<CreateMerchantActorResponse>builder()
                 .data(response)
                 .build();
     }

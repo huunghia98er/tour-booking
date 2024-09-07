@@ -19,10 +19,12 @@ import java.util.Date;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Entity(name = "invalidated_token")
-public class InvalidatedToken {
+public class InvalidatedTokenEntity {
+
     @Id
     String id;
 
     @Column(name = "expiry_time")
     Date expiryTime;
+
 }

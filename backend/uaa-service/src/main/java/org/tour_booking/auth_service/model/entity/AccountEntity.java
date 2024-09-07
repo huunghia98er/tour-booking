@@ -16,9 +16,10 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "account")
+@Entity
+@Table(name = "account")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Account extends BaseEntity {
+public class AccountEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,14 +39,17 @@ public class Account extends BaseEntity {
 
     @Builder.Default
     @Column(name = "is_active")
-    boolean isActive = true;
+    Boolean isActive = false;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "account_permissions",
             joinColumns = @JoinColumn(name = "account_id"),
             inverseJoinColumns = @JoinColumn(name = "permissions_id")
     )
-    Set<Permission> permissions;
+    Set<PermissionEntity> permissions;
 
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "merchant_id")
+    MerchantEntity merchant;
 }

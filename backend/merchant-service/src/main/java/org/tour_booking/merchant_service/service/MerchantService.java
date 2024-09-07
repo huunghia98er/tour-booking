@@ -8,7 +8,7 @@ import org.tour_booking.merchant_service.model.request.RegisterMerchantRequest;
 import org.tour_booking.merchant_service.model.response.ApproveMerchantResponse;
 import org.tour_booking.merchant_service.model.response.CreateMerchantActorResponse;
 import org.tour_booking.merchant_service.model.response.RegisterMerchantResponse;
-import util.SimplePage;
+import utils.SimplePage;
 
 public interface MerchantService {
 

@@ -25,8 +25,10 @@ import org.springframework.web.filter.CorsFilter;
 public class SecurityConfig {
 
     String[] PUBLIC_ENDPOINTS = {
-            "/merchant/register",
-            "/account/register",
+            "/account/user/register",
+            "/account/user/update",
+            "/account/merchant/create",
+            "/account/merchant/actors/create",
             "/auth/login",
             "/auth/valid",
             "/auth/logout",

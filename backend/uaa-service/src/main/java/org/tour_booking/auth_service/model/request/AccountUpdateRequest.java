@@ -12,8 +12,11 @@ import java.util.Set;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class AccountUpdateRequest {
+
+    String username;
     String password;
-    String firstName;
-    String lastName;
+    String email;
+    String phone;
     Set<String> permissions;
+
 }

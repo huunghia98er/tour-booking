@@ -12,12 +12,34 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        highlight_sql: true
+        jdbc:
+          batch_size: 20
+          batch_versioned_data: true
+        order_inserts: true
+        order_updates: true
     show-sql: true
     open-in-view: false
+  mail:
+    host: smtp.your-email-provider.com
+    port: 587
+    username: a@gmail.com
+    password: password
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+        transport:
+          protocol: smtp
 
 jwt:
   signerKey: 1TjXchw5FloESb63Kc+DFhTARvpWL4jUGCwfGWxuG5SIf/1y/LgJxHnMqaF6A/ij
-  valid-duration: 15 #in second
+  valid-duration: 600 #in second
   refreshable-duration: 6000 # in second
 
 logging:

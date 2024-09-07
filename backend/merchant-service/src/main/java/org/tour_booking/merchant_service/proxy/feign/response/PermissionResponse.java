@@ -1,4 +1,4 @@
-package org.tour_booking.auth_service.model.request;
+package org.tour_booking.merchant_service.proxy.feign.response;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -9,6 +9,9 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class LogoutRequest {
-    String token;
+public class PermissionResponse {
+
+    Long id;
+    String name;
+
 }

@@ -26,14 +26,14 @@ import java.util.Objects;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class CustomJwtDecoder implements JwtDecoder {
 
+    AuthenticationService authenticationService;
+
     @NonFinal
     @Value("${jwt.signerKey}")
     String SIGNER_KEY;
 
     @NonFinal
     NimbusJwtDecoder nimbusJwtDecoder = null;
-
-    AuthenticationService authenticationService;
 
     @Override
     public Jwt decode(String token) throws JwtException {

@@ -9,12 +9,8 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class AccountCreationRequest {
+public class ConfirmAccountRequest {
 
-    String username;
-    String password;
-    String email;
-    String phone;
-    Long merchantId;
+    String token;
 
 }

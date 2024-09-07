@@ -1,4 +1,4 @@
-package org.tour_booking.merchant_service.model.response;
+package org.tour_booking.auth_service.model.response;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;

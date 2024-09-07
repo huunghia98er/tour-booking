@@ -4,6 +4,7 @@ import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jwt.SignedJWT;
 import exception.AppException;
 import exception.ERROR_CODE;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -11,10 +12,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.tour_booking.auth_service.model.entity.Account;
-import org.tour_booking.auth_service.model.entity.InvalidatedToken;
+import org.tour_booking.auth_service.model.entity.AccountEntity;
+import org.tour_booking.auth_service.model.entity.InvalidatedTokenEntity;
 import org.tour_booking.auth_service.model.request.AuthenticationRequest;
-import org.tour_booking.auth_service.model.request.LogoutRequest;
 import org.tour_booking.auth_service.model.request.RefreshRequest;
 import org.tour_booking.auth_service.model.request.ValidTokenRequest;
 import org.tour_booking.auth_service.model.response.AuthenticationResponse;
@@ -37,7 +37,7 @@ public class AuthenticationService {
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
-        Account account = accountRepo
+        AccountEntity account = accountRepo
                 .findByUsername(request.getUsername())
                 .orElseThrow(() -> new AppException(ERROR_CODE.USER_NOT_EXISTED));
 
@@ -63,13 +63,14 @@ public class AuthenticationService {
         return ValidTokenResponse.builder().valid(isValid).build();
     }
 
-    public void logout(LogoutRequest request) throws ParseException, JOSEException {
+    public void logout(HttpServletRequest request) throws ParseException, JOSEException {
         try {
-            SignedJWT signedJWT = tokenService.verifyToken(request.getToken(), true);
+            String token = tokenService.extractToken(request);
+            SignedJWT signedJWT = tokenService.verifyToken(token, true);
             String jit = signedJWT.getJWTClaimsSet().getJWTID();
             Date expiryTime = signedJWT.getJWTClaimsSet().getExpirationTime();
 
-            InvalidatedToken invalidatedToken = InvalidatedToken.builder()
+            InvalidatedTokenEntity invalidatedToken = InvalidatedTokenEntity.builder()
                     .id(jit)
                     .expiryTime(expiryTime)
                     .build();
@@ -84,14 +85,14 @@ public class AuthenticationService {
         String jit = signedJWT.getJWTClaimsSet().getJWTID();
         Date expiryTime = signedJWT.getJWTClaimsSet().getExpirationTime();
 
-        InvalidatedToken invalidatedToken = InvalidatedToken.builder()
+        InvalidatedTokenEntity invalidatedToken = InvalidatedTokenEntity.builder()
                 .id(jit)
                 .expiryTime(expiryTime)
                 .build();
         invalidTokenRepo.save(invalidatedToken);
 
         String username = signedJWT.getJWTClaimsSet().getSubject();
-        Account account = accountRepo.findByUsername(username)
+        AccountEntity account = accountRepo.findByUsername(username)
                 .orElseThrow(() -> new AppException(ERROR_CODE.UNAUTHENTICATED));
 
         String accessToken = tokenService.generateToken(account, true);

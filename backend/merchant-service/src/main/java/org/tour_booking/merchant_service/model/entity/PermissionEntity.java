@@ -23,7 +23,7 @@ import org.tour_booking.merchant_service.constant.PERMISSION;
 public class PermissionEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
+    Long id;
 
     @Column(length = 100, nullable = false, unique = true)
     String name;

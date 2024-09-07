@@ -2,7 +2,6 @@ package org.tour_booking.merchant_service.model.request;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.tour_booking.merchant_service.constant.PERMISSION;
 
 import java.util.List;
 import java.util.Set;
@@ -20,7 +19,6 @@ import java.util.Set;
 public class CreateMerchantActorRequest {
 
     Long merchantId;
-
     List<Account> accounts;
 
     @Getter
@@ -32,14 +30,10 @@ public class CreateMerchantActorRequest {
     public static class Account {
 
         String username;
-
         String password;
-
         String email;
-
         String phone;
-
-        Set<PERMISSION> permissions;
+        Set<String> permissions;
 
     }
 
