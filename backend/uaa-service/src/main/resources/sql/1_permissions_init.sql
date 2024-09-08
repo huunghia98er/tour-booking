@@ -1,0 +1,9 @@
+INSERT INTO permission (name)
+VALUES ('APPROVE_MERCHANT'),
+       ('REJECT_MERCHANT'),
+       ('APPROVE_TOUR'),
+       ('MERCHANT_CREATE_TOUR'),
+       ('MERCHANT_EDIT_TOUR'),
+       ('MERCHANT_DELETE_TOUR'),
+       ('MERCHANT_TOUR_GUIDE'),
+       ('CUSTOMER');

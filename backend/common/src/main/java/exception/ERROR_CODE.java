@@ -24,12 +24,17 @@ public enum ERROR_CODE {
     INVALID_USERNAME(1005, "Username must be at least {min} characters"),
     INVALID_PASSWORD(1006, "Password must be at least {min} characters"),
     INVALID_TOKEN(1007, "Invalid token"),
+    EMAIL_EXISTED(1008, "Email existed"),
+    EMAIL_NOT_EXISTED(1009, "Email not existed"),
 
     /**
      * Other Exception
      **/
     INVALID_PAGE_SIZE(4002, "Invalid page size"),
     INVALID_PAGE_NUMBER(4003, "Invalid page number"),
+    MERCHANT_EXISTED(4004, "Merchant existed"),
+    MERCHANT_NOT_EXISTED(4005, "Merchant not existed"),
+    PERMISSION_NOT_FOUND(4006, "Permission not found"),
     ;
 
     private final int code;
