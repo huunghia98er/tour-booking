@@ -2,6 +2,7 @@ package org.tour_booking.merchant_service.validator;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
+import org.tour_booking.merchant_service.validator.impl.PhoneNumberValidator;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -16,7 +17,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = PhoneNumberValidator.class)
 public @interface PhoneNumberConstrain {
-    String message() default "Invalid phone number";
+    String message() default "Wrong phone number format";
 
     Class<?>[] groups() default {};
 

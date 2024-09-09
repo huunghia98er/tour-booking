@@ -1,7 +1,8 @@
-package org.tour_booking.auth_service.validator;
+package org.tour_booking.auth_service.validator.impl;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import org.tour_booking.auth_service.validator.EmailConstrain;
 
 import java.util.regex.Pattern;
 

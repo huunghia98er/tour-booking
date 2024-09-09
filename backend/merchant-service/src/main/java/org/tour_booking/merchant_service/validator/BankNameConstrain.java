@@ -1,8 +1,8 @@
-package org.tour_booking.auth_service.validator;
+package org.tour_booking.merchant_service.validator;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
-import org.tour_booking.auth_service.validator.impl.EmailValidator;
+import org.tour_booking.merchant_service.validator.impl.BankNameValidator;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -11,10 +11,10 @@ import java.lang.annotation.Target;
 
 @Target({ElementType.PARAMETER, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = {EmailValidator.class})
-public @interface EmailConstrain {
+@Constraint(validatedBy = {BankNameValidator.class})
+public @interface BankNameConstrain {
 
-    String message() default "Wrong email format";
+    String message() default "Bank not found";
 
     Class<?>[] groups() default {};
 

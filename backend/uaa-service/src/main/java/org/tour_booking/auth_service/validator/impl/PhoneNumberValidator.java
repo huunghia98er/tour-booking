@@ -1,7 +1,8 @@
-package org.tour_booking.merchant_service.validator;
+package org.tour_booking.auth_service.validator.impl;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import org.tour_booking.auth_service.validator.PhoneNumberConstrain;
 
 import java.util.regex.Pattern;
 
@@ -12,7 +13,7 @@ import java.util.regex.Pattern;
 public final class PhoneNumberValidator implements ConstraintValidator<PhoneNumberConstrain, String> {
 
     private static final Pattern PHONE_NUMBER_PATTERN = Pattern.compile(
-            "^\\+?[1-9]\\d{1,14}$"
+            "^\\+?[1-9]\\d{5,14}$"
     );
 
     @Override

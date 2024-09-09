@@ -2,6 +2,7 @@ package org.tour_booking.merchant_service.validator;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
+import org.tour_booking.merchant_service.validator.impl.EmailValidator;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -13,7 +14,7 @@ import java.lang.annotation.Target;
 @Constraint(validatedBy = {EmailValidator.class})
 public @interface EmailConstrain {
 
-    String message() default "Invalid email address";
+    String message() default "Wrong email format";
 
     Class<?>[] groups() default {};
 
