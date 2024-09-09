@@ -149,10 +149,11 @@ public class MerchantServiceImpl implements MerchantService {
 
     @Override
     public CreateMerchantActorResponse createActor(CreateMerchantActorRequest request) {
-        merchantRepo.findById(request.getMerchantId())
-                .orElseThrow(() -> new AppException(ERROR_CODE.MERCHANT_NOT_EXISTED));
-        uaaServiceClient.createMerchantActorAccount(request);
-        return new CreateMerchantActorResponse();
+        var accounts = uaaServiceClient.createMerchantActorAccount(request);
+        return CreateMerchantActorResponse.builder()
+                .merchantId(request.getMerchantId())
+                .accounts(accounts.getData())
+                .build();
     }
 
 }

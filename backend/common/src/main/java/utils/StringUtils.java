@@ -47,12 +47,11 @@ public final class StringUtils {
 
     public static String generateUniqueString(int strLength) {
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        Random random = new Random();
         Set<Character> usedCharacters = new HashSet<>();
         StringBuilder uniqueString = new StringBuilder();
 
         while (uniqueString.length() < strLength) {
-            int index = random.nextInt(characters.length());
+            int index = new Random().nextInt(characters.length());
             char selectedChar = characters.charAt(index);
 
             if (!usedCharacters.contains(selectedChar)) {
