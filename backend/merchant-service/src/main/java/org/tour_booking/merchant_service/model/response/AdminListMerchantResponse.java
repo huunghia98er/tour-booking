@@ -19,31 +19,18 @@ import java.util.Map;
 public class AdminListMerchantResponse {
 
     Long id;
-
     String name;
-
     String contactEmail;
-
     String contactPhone;
-
     String address;
-
     String bankAccountNumber;
-
     String bankName;
-
     String bankAccountHolderName;
-
     LocalDateTime registrationDate;
-
     VERIFICATION_STATUS verificationStatus;
-
     LocalDateTime approvalDate;
-
     boolean isActive = false;
-
     String rejectionReason;
-
     Map<String, LocalDateTime> businessLicenseMap;
 
 }

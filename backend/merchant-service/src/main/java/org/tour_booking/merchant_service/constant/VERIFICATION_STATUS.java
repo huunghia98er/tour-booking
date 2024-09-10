@@ -2,7 +2,7 @@ package org.tour_booking.merchant_service.constant;
 
 public enum VERIFICATION_STATUS {
 
-    PENDING ("PENDING"),
+    PENDING("PENDING"),
     VERIFIED("VERIFIED"),
     REJECTED("REJECTED");
 

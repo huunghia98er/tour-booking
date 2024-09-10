@@ -23,31 +23,18 @@ import java.util.Map;
 public class RegisterMerchantResponse {
 
     Long id;
-
     String name;
-
     String contactEmail;
-
     String contactPhone;
-
     String address;
-
     String bankAccountNumber;
-
     String bankName;
-
     String bankAccountHolderName;
-
     LocalDateTime registrationDate;
-
     VERIFICATION_STATUS verificationStatus;
-
     LocalDateTime approvalDate;
-
     Boolean isActive;
-
     String rejectionReason;
-
     Map<String, MultipartFile> businessLicenseMap;
 
 }

@@ -13,10 +13,10 @@ import org.tour_booking.merchant_service.model.response.RegisterMerchantResponse
 @Mapper(componentModel = "spring")
 public interface MerchantMapper {
 
-    MerchantEntity toEntity(RegisterMerchantRequest request);
+    MerchantEntity toEntity(final RegisterMerchantRequest request);
 
-    RegisterMerchantResponse toRegisterMerchantResponse(MerchantEntity entity);
+    RegisterMerchantResponse toRegisterMerchantResponse(final MerchantEntity entity);
 
-    AdminListMerchantResponse toAdminListMerchantResponse(MerchantEntity entity);
+    AdminListMerchantResponse toAdminListMerchantResponse(final MerchantEntity entity);
 
 }
