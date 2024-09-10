@@ -1,18 +1,19 @@
 package org.tour_booking.merchant_service.service;
 
 import org.springframework.data.domain.Pageable;
-import org.tour_booking.merchant_service.model.response.AdminListMerchantResponse;
-import org.tour_booking.merchant_service.model.PolicyDTO;
+import org.tour_booking.merchant_service.model.request.BusinessPolicyCreationRequest;
+import org.tour_booking.merchant_service.model.request.BusinessPolicyUpdateRequest;
+import org.tour_booking.merchant_service.model.response.BusinessPolicyDTO;
 import utils.SimplePage;
 
 public interface PolicyService {
 
-    SimplePage<AdminListMerchantResponse> getAll(Pageable pageable);
+    SimplePage<BusinessPolicyDTO> getAll(Pageable pageable);
 
-    PolicyDTO create(PolicyDTO request);
+    BusinessPolicyDTO create(BusinessPolicyCreationRequest request);
 
-    PolicyDTO edit(PolicyDTO request);
+    BusinessPolicyDTO update(BusinessPolicyUpdateRequest request);
 
-    PolicyDTO delete(PolicyDTO request);
+    Boolean delete(Long policyId);
 
 }

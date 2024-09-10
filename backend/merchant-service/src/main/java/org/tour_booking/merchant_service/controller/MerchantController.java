@@ -66,12 +66,11 @@ public class MerchantController {
      */
     @GetMapping("/list")
     ApiResponse<SimplePage<AdminListMerchantResponse>> adminListMerchant
-            (@RequestParam(value = "verificationStatus", required = false) String verificationStatus,
-             @RequestParam(value = "isActive", required = false)  Boolean isActive,
-             @RequestParam(value = "fromDate", required = false) String fromDate,
-             @RequestParam(value = "toDate", required = false) String toDate,
-             @PageableDefault(sort = "registrationDate", direction = Sort.Direction.DESC) Pageable pageable)
-    {
+    (@RequestParam(value = "verificationStatus", required = false) String verificationStatus,
+     @RequestParam(value = "isActive", required = false) Boolean isActive,
+     @RequestParam(value = "fromDate", required = false) String fromDate,
+     @RequestParam(value = "toDate", required = false) String toDate,
+     @PageableDefault(sort = "registrationDate", direction = Sort.Direction.DESC) Pageable pageable) {
         var request = AdminListMerchantRequest.builder()
                 .verificationStatus(verificationStatus)
                 .isActive(isActive)

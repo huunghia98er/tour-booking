@@ -37,5 +37,4 @@ public class RegisterMerchantResponse {
     Boolean isActive;
     String rejectionReason;
     Map<String, String> businessLicenseMap;
-
 }

@@ -22,9 +22,11 @@ import java.util.Date;
 @Table(name = "invalidated_token")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class InvalidatedTokenEntity {
+
     @Id
     String id;
 
     @Column(name = "expiry_time")
     Date expiryTime;
+
 }

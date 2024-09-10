@@ -3,7 +3,6 @@ package org.tour_booking.merchant_service.model.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.tour_booking.merchant_service.constant.PERMISSION;
 
 /**
  * Basic information about the agency
@@ -21,6 +20,7 @@ import org.tour_booking.merchant_service.constant.PERMISSION;
 @Table(name = "permission")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class PermissionEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
