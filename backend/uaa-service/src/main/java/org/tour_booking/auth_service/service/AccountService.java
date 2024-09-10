@@ -7,6 +7,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -97,9 +98,23 @@ public class AccountService {
         Set<String> usernames = requestAccounts.stream()
                 .map(CreateMerchantActorRequest.Account::getUsername)
                 .collect(Collectors.toSet());
-        List<String> existedByUsernames = accountRepo.findByUsernames(usernames);
-        if (!existedByUsernames.isEmpty()) {
-            throw new AppException(ERROR_CODE.USER_EXISTED, existedByUsernames.getFirst());
+        Set<String> emails = requestAccounts.stream()
+                .map(CreateMerchantActorRequest.Account::getEmail)
+                .collect(Collectors.toSet());
+
+        List<AccountEntity> existedAccounts = accountRepo.findByUsernamesOrEmails(usernames, emails);
+
+        if (!existedAccounts.isEmpty()) {
+            StringBuilder errorMessage = new StringBuilder();
+            for (AccountEntity account : existedAccounts) {
+                if (usernames.contains(account.getUsername())) {
+                    errorMessage.append(account.getUsername()).append(", ");
+                }
+                if (emails.contains(account.getEmail())) {
+                    errorMessage.append(account.getEmail()).append(", ");
+                }
+            }
+            throw new AppException(ERROR_CODE.USER_EXISTED, StringUtils.removeEnd(errorMessage.toString(), ", "));
         }
 
         Set<String> permissionNamesRequest = requestAccounts.stream()
