@@ -19,7 +19,7 @@ public interface MerchantRepository extends JpaRepository<MerchantEntity, Long> 
     @Query("SELECT m FROM MerchantEntity m " +
             "WHERE (:#{#filter.verificationStatus} IS NULL OR m.verificationStatus = :#{#filter.verificationStatus}) " +
             "AND (:#{#filter.isActive} IS NULL OR m.isActive = :#{#filter.isActive}) " +
-            "AND (:#{#filter.fromDate} IS NULL AND :#{#filter.toDate} IS NULL " +
+            "AND ((:#{#filter.fromDate} IS NULL AND :#{#filter.toDate} IS NULL) " +
             "OR m.registrationDate BETWEEN :#{#filter.fromDate} AND :#{#filter.toDate})")
     Page<MerchantEntity> findAllByVerificationStatusAndIsActive(@Param("filter") MerchantByFilter filter,
                                                                 Pageable pageable);
