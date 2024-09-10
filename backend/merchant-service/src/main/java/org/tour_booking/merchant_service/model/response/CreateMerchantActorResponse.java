@@ -2,9 +2,9 @@ package org.tour_booking.merchant_service.model.response;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.tour_booking.merchant_service.proxy.feign.response.AccountResponse;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * @Author: luunguyen301297
@@ -19,22 +19,6 @@ import java.util.Set;
 public class CreateMerchantActorResponse {
 
     Long merchantId;
-    List<Account> accounts;
-
-    @Getter
-    @Setter
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
-    @FieldDefaults(level = AccessLevel.PRIVATE)
-    public static class Account {
-
-        String username;
-        String password;
-        String email;
-        String phone;
-        Set<String> permissions;
-
-    }
+    List<AccountResponse> accounts;
 
 }

@@ -17,9 +17,11 @@ public interface AccountRepository extends JpaRepository<AccountEntity, Long> {
 
     boolean existsByEmail(String email);
 
-    @Query("SELECT a.username FROM AccountEntity a " +
-            "WHERE a.username IN (:usernames)")
-    List<String> findByUsernames(@Param("usernames") Set<String> usernames);
+    @Query("SELECT a FROM AccountEntity a " +
+            "WHERE a.username IN (:usernames) " +
+            "OR a.email IN (:emails)")
+    List<AccountEntity> findByUsernamesOrEmails(@Param("usernames") Set<String> usernames,
+                                                          @Param("emails") Set<String> emails);
 
     Optional<AccountEntity> findByUsername(String username);
 

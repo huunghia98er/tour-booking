@@ -28,6 +28,7 @@ import org.tour_booking.merchant_service.repository.BusinessLicenseRepository;
 import org.tour_booking.merchant_service.repository.MerchantRepository;
 import org.tour_booking.merchant_service.repository.filter.MerchantByFilter;
 import org.tour_booking.merchant_service.service.MerchantService;
+import org.tour_booking.merchant_service.utils.BankUtils;
 import utils.DateUtils;
 import utils.SimplePage;
 
@@ -97,6 +98,7 @@ public class MerchantServiceImpl implements MerchantService {
 
     @Override
     public RegisterMerchantResponse register(RegisterMerchantRequest request) {
+        BankUtils.isValidBankNumber(request.getBankName(), request.getBankAccountNumber());
         if (merchantRepo.existsByContactEmail(request.getContactEmail())) {
             throw new AppException(ERROR_CODE.EMAIL_EXISTED);
         }
@@ -149,10 +151,11 @@ public class MerchantServiceImpl implements MerchantService {
 
     @Override
     public CreateMerchantActorResponse createActor(CreateMerchantActorRequest request) {
-        merchantRepo.findById(request.getMerchantId())
-                .orElseThrow(() -> new AppException(ERROR_CODE.MERCHANT_NOT_EXISTED));
-        uaaServiceClient.createMerchantActorAccount(request);
-        return new CreateMerchantActorResponse();
+        var accounts = uaaServiceClient.createMerchantActorAccount(request);
+        return CreateMerchantActorResponse.builder()
+                .merchantId(request.getMerchantId())
+                .accounts(accounts.getData())
+                .build();
     }
 
 }

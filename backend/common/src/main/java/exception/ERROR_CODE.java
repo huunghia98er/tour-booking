@@ -17,24 +17,32 @@ public enum ERROR_CODE {
     /**
      * Auth Exception
      **/
-    USER_EXISTED(1001, "User existed"),
-    USER_NOT_EXISTED(1002, "User not existed"),
-    UNAUTHENTICATED(1003, "Unauthenticated"),
-    UNAUTHORIZED(1004, "You do not have permission"),
-    INVALID_USERNAME(1005, "Username must be at least {min} characters"),
-    INVALID_PASSWORD(1006, "Password must be at least {min} characters"),
-    INVALID_TOKEN(1007, "Invalid token"),
-    EMAIL_EXISTED(1008, "Email existed"),
-    EMAIL_NOT_EXISTED(1009, "Email not existed"),
+    UNAUTHENTICATED(1001, "Unauthenticated"),
+    UNAUTHORIZED(1002, "You do not have permission"),
+    INVALID_TOKEN(1003, "Invalid token"),
+    USER_EXISTED(1004, "User existed"),
+    USER_NOT_EXISTED(1005, "User not existed"),
+    EMAIL_EXISTED(1006, "Email existed"),
+    EMAIL_NOT_EXISTED(1007, "Email not existed"),
+
+    /**
+     * Valid Exception
+     **/
+    INVALID_PAGE_SIZE(2001, "Invalid page size"),
+    INVALID_PAGE_NUMBER(2002, "Invalid page number"),
+    INVALID_USERNAME(2003, "Username must be at least {min} characters"),
+    INVALID_PASSWORD(2004, "Password must be at least {min} characters"),
+    INVALID_PHONE_NUMBER(2005, "Wrong phone number format"),
+    INVALID_EMAIL(2005, "Wrong email format"),
+    BANK_NOT_FOUND(2006, "Bank not found"),
+    INVALID_BANK_NUMBER(2007, "Invalid bank number"),
 
     /**
      * Other Exception
      **/
-    INVALID_PAGE_SIZE(4002, "Invalid page size"),
-    INVALID_PAGE_NUMBER(4003, "Invalid page number"),
-    MERCHANT_EXISTED(4004, "Merchant existed"),
-    MERCHANT_NOT_EXISTED(4005, "Merchant not existed"),
-    PERMISSION_NOT_FOUND(4006, "Permission not found"),
+    MERCHANT_EXISTED(4001, "Merchant existed"),
+    MERCHANT_NOT_EXISTED(4002, "Merchant not existed"),
+    PERMISSION_NOT_FOUND(4003, "Permission not found"),
     ;
 
     private final int code;

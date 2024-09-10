@@ -1,8 +1,8 @@
 package org.tour_booking.merchant_service.model.response;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.springframework.web.multipart.MultipartFile;
 import org.tour_booking.merchant_service.constant.VERIFICATION_STATUS;
 
 import java.time.LocalDateTime;
@@ -20,6 +20,7 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class RegisterMerchantResponse {
 
     Long id;
@@ -35,6 +36,5 @@ public class RegisterMerchantResponse {
     LocalDateTime approvalDate;
     Boolean isActive;
     String rejectionReason;
-    Map<String, MultipartFile> businessLicenseMap;
-
+    Map<String, String> businessLicenseMap;
 }
