@@ -2,6 +2,7 @@ package org.tour_booking.merchant_service.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.tour_booking.merchant_service.model.entity.BusinessLicenseEntity;
 
@@ -16,7 +17,7 @@ public interface BusinessLicenseRepository extends JpaRepository<BusinessLicense
 
     @Query("SELECT b FROM BusinessLicenseEntity b " +
             "JOIN MerchantEntity m ON m.id = b.merchantId " +
-            "WHERE m.id in (:merchantId)")
-    List<BusinessLicenseEntity> findByMerchantIds(List<Long> merchantId);
+            "WHERE m.id in (:merchantIds)")
+    List<BusinessLicenseEntity> findByMerchantIds(@Param("merchantIds") List<Long> merchantIds);
 
 }

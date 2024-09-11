@@ -18,11 +18,8 @@ import java.time.LocalDateTime;
 public class MerchantByFilter {
 
     String verificationStatus;
-
     Boolean isActive;
-
     LocalDateTime fromDate;
-
     LocalDateTime toDate;
 
 }

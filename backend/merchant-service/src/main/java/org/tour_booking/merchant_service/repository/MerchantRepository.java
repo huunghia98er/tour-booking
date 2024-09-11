@@ -24,5 +24,5 @@ public interface MerchantRepository extends JpaRepository<MerchantEntity, Long> 
     Page<MerchantEntity> findAllByVerificationStatusAndIsActive(@Param("filter") MerchantByFilter filter,
                                                                 Pageable pageable);
 
-    boolean existsByContactEmail(String contactEmail);
+    boolean existsByContactEmail(@Param("email") String email);
 }
