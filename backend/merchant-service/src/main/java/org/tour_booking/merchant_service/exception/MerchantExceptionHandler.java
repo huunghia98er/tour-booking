@@ -1,4 +1,4 @@
-package org.tour_booking.merchant_service.exeption;
+package org.tour_booking.merchant_service.exception;
 
 import exception.GlobalExceptionHandler;
 import org.springframework.web.bind.annotation.ControllerAdvice;
