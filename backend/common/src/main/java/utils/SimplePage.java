@@ -44,7 +44,7 @@ public final class SimplePage<T> {
 
     @JsonProperty("page")
     public int getPage() {
-        return page + 1;
+        return page;
     }
 
     @JsonProperty("size")
