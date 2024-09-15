@@ -3,7 +3,7 @@ package org.tour_booking.booking_service.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.Random;
+import java.security.SecureRandom;
 
 /**
  * @Author: HuuNghia
@@ -13,7 +13,7 @@ import java.util.Random;
 @Configuration
 public class RandomConfig {
     @Bean
-    public Random random() {
-        return new Random();
+    public SecureRandom random() {
+        return new SecureRandom();
     }
 }

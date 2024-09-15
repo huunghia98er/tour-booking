@@ -7,7 +7,7 @@ import org.tour_booking.booking_service.mapper.BookingMapper;
 import org.tour_booking.booking_service.models.entity.Booking;
 import org.tour_booking.booking_service.models.request.BookingRequest;
 
-import java.util.Random;
+import java.security.SecureRandom;
 
 /**
  * @Author: HuuNghia
@@ -19,7 +19,7 @@ import java.util.Random;
 public class BookingUtils {
     private static final String BOOKING_CODE_PREFIX = "STB";
     private final BookingMapper bookingMapper;
-    private final Random random;
+    private final SecureRandom random;
 
     public Booking convertRequestToEntity(BookingRequest request) {
         Booking booking = bookingMapper.fromRequestToEntity(request);
