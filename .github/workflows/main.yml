@@ -42,7 +42,7 @@ jobs:
       - name: Build and generate coverage report
         run: |
           cd backend
-          mvn clean verify jacoco:report
+          mvn verify jacoco:report
 
       - name: Build and analyze
         env:
