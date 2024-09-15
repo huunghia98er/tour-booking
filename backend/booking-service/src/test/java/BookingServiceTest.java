@@ -1,12 +1,13 @@
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.InjectMocks;
+import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.tour_booking.booking_service.BookingServiceApplication;
 import org.tour_booking.booking_service.models.entity.Booking;
 import org.tour_booking.booking_service.models.request.BookingRequest;
 import org.tour_booking.booking_service.repository.BookingRepository;
 import org.tour_booking.booking_service.service.BookingService;
+import org.tour_booking.booking_service.service.KafkaService;
 import org.tour_booking.booking_service.utils.BookingUtils;
 
 import java.time.LocalDate;
@@ -14,6 +15,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 /**
@@ -21,14 +23,20 @@ import static org.mockito.Mockito.when;
  * @LastModified: 2024/09/15
  */
 
-@SpringBootTest(classes = BookingServiceApplication.class)
 class BookingServiceTest {
     @MockBean
     private BookingRepository bookingRepository;
     @MockBean
     private BookingUtils bookingUtils;
-    @Autowired
+    @InjectMocks
     private BookingService bookingService;
+    @MockBean
+    private KafkaService kafkaService;
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+    }
 
     @Test
     void createBooking() {
@@ -48,6 +56,7 @@ class BookingServiceTest {
         when(bookingUtils.generateBookingCode()).thenReturn(bookingCode);
         when(bookingUtils.convertRequestToEntity(request)).thenReturn(booking);
         when(bookingRepository.save(booking)).thenReturn(booking);
+        doNothing().when(kafkaService).sendMessage(booking);
 
         String orderCodeAfterSave = bookingService.createBooking(request);
 
@@ -63,6 +72,7 @@ class BookingServiceTest {
 
         when(bookingRepository.findByBookingCode(bookingCode)).thenReturn(Optional.of(booking));
         when(bookingRepository.save(booking)).thenReturn(booking);
+        doNothing().when(kafkaService).sendMessage(booking);
 
         boolean isUpdated = bookingService.cancelBooking(bookingCode);
 
