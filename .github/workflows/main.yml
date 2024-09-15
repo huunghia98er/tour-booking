@@ -45,8 +45,10 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           cd backend
-          mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:4.0.0.4121:sonar \
+          mvn -B verify org.jacoco:jacoco-maven-plugin:report org.sonarsource.scanner.maven:sonar-maven-plugin:4.0.0.4121:sonar \
+            -Pcoverage \
             -Dsonar.projectKey=tour-booking \
             -Dsonar.organization=huunghia98er \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.token=${{ secrets.SONAR_TOKEN }}
+            -Dsonar.coverage.jacoco.xmlReportPaths=$(find . -name "jacoco.xml" | tr '\n' ',' | sed 's/,$//')
