@@ -39,7 +39,7 @@ public class BookingUtils {
         return booking;
     }
 
-    private String generateBookingCode() {
+    public String generateBookingCode() {
         return BOOKING_CODE_PREFIX + System.currentTimeMillis() + random.nextLong();
     }
 
