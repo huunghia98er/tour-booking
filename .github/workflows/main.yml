@@ -45,10 +45,21 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           cd backend
-          mvn -B verify org.jacoco:jacoco-maven-plugin:report org.sonarsource.scanner.maven:sonar-maven-plugin:4.0.0.4121:sonar \
-            -Pcoverage \
-            -Dsonar.projectKey=tour-booking \
-            -Dsonar.organization=huunghia98er \
-            -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.token=${{ secrets.SONAR_TOKEN }}
-            -Dsonar.coverage.jacoco.xmlReportPaths=$(find . -name "jacoco.xml" | tr '\n' ',' | sed 's/,$//')
+          mvn -B verify org.jacoco:jacoco-maven-plugin:report
+          if [ -f $(find . -name "jacoco.xml") ]; then
+            JACOCO_PATH=$(find . -name "jacoco.xml" | tr '\n' ',' | sed 's/,$//')
+            mvn -B org.sonarsource.scanner.maven:sonar-maven-plugin:4.0.0.4121:sonar \
+              -Pcoverage \
+              -Dsonar.projectKey=tour-booking \
+              -Dsonar.organization=huunghia98er \
+              -Dsonar.host.url=https://sonarcloud.io \
+              -Dsonar.token=${{ secrets.SONAR_TOKEN }} \
+              -Dsonar.coverage.jacoco.xmlReportPaths=$JACOCO_PATH
+          else
+            mvn -B org.sonarsource.scanner.maven:sonar-maven-plugin:4.0.0.4121:sonar \
+              -Dsonar.projectKey=tour-booking \
+              -Dsonar.organization=huunghia98er \
+              -Dsonar.host.url=https://sonarcloud.io \
+              -Dsonar.token=${{ secrets.SONAR_TOKEN }}
+            echo "Skipping coverage report because jacoco.xml was not found"
+          fi
