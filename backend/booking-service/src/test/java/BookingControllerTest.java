@@ -37,7 +37,7 @@ class BookingControllerTest {
     }
 
     @Test
-    void createBooking() {
+    void createBooking_success() {
         String bookingCode = "STB123456";
 
         BookingRequest request = BookingRequest.builder()
@@ -60,6 +60,28 @@ class BookingControllerTest {
                 .code(201)
                 .message("Create booking successfully")
                 .data("STB123456")
+                .build();
+
+        assertEquals(expected, apiResponse);
+    }
+
+    @Test
+    void createBooking_failed() {
+        BookingRequest request = BookingRequest.builder()
+                .customerId(1)
+                .departureDate(LocalDate.now())
+                .totalPrice(1000)
+                .createdBy("HuuNghia")
+                .build();
+
+        when(bookingService.createBooking(any())).thenReturn(null);
+        when(bookingRepository.save(any())).thenReturn(null);
+
+        ApiResponse<String> apiResponse = bookingController.createBooking(request);
+
+        ApiResponse<String> expected = ApiResponse.<String>builder()
+                .code(400)
+                .message("Create booking failed")
                 .build();
 
         assertEquals(expected, apiResponse);
