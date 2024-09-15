@@ -2,6 +2,7 @@ package org.tour_booking.booking_service.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.tour_booking.booking_service.constant.BookingStatus;
 import org.tour_booking.booking_service.models.entity.Booking;
 import org.tour_booking.booking_service.models.request.BookingRequest;
 import org.tour_booking.booking_service.repository.BookingRepository;
@@ -28,7 +29,7 @@ public class BookingServiceImpl implements BookingService {
 
         Booking booking = bookingRepository.save(entityRequest);
 
-//        kafkaService.sendMessage(booking);
+        kafkaService.sendMessage(booking);
 
         return booking.getBookingCode();
     }
@@ -39,8 +40,14 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public String deleteBooking() {
-        return "";
+    public Boolean cancelBooking(String bookingCode) {
+        Booking booking = bookingRepository.findByBookingCode(bookingCode).orElseThrow(() -> new RuntimeException("Booking not found"));
+
+        booking.setBookingStatus(BookingStatus.CANCELLED_BY_CUSTOMER);
+
+        Booking updatedBooking = bookingRepository.save(booking);
+
+        return updatedBooking.getBookingStatus() == BookingStatus.CANCELLED_BY_CUSTOMER;
     }
 
     @Override

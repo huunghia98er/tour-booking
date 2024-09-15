@@ -17,7 +17,7 @@ public interface BookingService {
 
     String updateBooking();
 
-    String deleteBooking();
+    Boolean cancelBooking(String orderCode);
 
     Booking getBooking();
 

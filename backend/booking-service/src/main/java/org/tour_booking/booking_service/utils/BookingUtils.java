@@ -7,6 +7,8 @@ import org.tour_booking.booking_service.mapper.BookingMapper;
 import org.tour_booking.booking_service.models.entity.Booking;
 import org.tour_booking.booking_service.models.request.BookingRequest;
 
+import java.util.Random;
+
 /**
  * @Author: HuuNghia
  * @LastModified: 2024/08/24
@@ -17,6 +19,7 @@ import org.tour_booking.booking_service.models.request.BookingRequest;
 public class BookingUtils {
     private static final String BOOKING_CODE_PREFIX = "STB";
     private final BookingMapper bookingMapper;
+    private final Random random;
 
     public Booking convertRequestToEntity(BookingRequest request) {
         Booking booking = bookingMapper.fromRequestToEntity(request);
@@ -37,7 +40,7 @@ public class BookingUtils {
     }
 
     private String generateBookingCode() {
-        return BOOKING_CODE_PREFIX + System.currentTimeMillis();
+        return BOOKING_CODE_PREFIX + System.currentTimeMillis() + random.nextLong();
     }
 
 }
