@@ -40,6 +40,9 @@
         <java.version>21</java.version>
         <sonar.organization>huunghia98er</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.coverage.jacoco.xmlReportPaths>
+            ${project.basedir}/**/target/site/jacoco/jacoco.xml
+        </sonar.coverage.jacoco.xmlReportPaths>
     </properties>
 
     <build>
@@ -83,30 +86,6 @@
                         <goals>
                             <goal>report</goal>
                         </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.8</version>
-                <executions>
-                    <execution>
-                        <id>copy-jacoco-reports</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <target>
-                                <mkdir dir="${project.basedir}/booking-service/jacoco-reports"/>
-                                <copy todir="${project.basedir}/booking-service/jacoco-reports">
-                                    <fileset dir="${project.basedir}/booking-service/target/site/jacoco"
-                                             includes="jacoco.xml"/>
-                                </copy>
-                            </target>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
