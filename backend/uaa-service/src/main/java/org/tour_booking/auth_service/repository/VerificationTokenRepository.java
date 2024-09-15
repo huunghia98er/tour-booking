@@ -1,6 +1,7 @@
 package org.tour_booking.auth_service.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.query.Param;
 import org.tour_booking.auth_service.model.entity.VerificationTokenEntity;
 
 import java.util.Optional;
@@ -11,6 +12,6 @@ import java.util.Optional;
  */
 public interface VerificationTokenRepository extends JpaRepository<VerificationTokenEntity, Long> {
 
-    Optional<VerificationTokenEntity> findByToken(String token);
+    Optional<VerificationTokenEntity> findByToken(@Param("token") String token);
 
 }

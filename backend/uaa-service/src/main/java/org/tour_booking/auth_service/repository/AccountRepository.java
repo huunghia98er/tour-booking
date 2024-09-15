@@ -21,7 +21,7 @@ public interface AccountRepository extends JpaRepository<AccountEntity, Long> {
             "WHERE a.username IN (:usernames) " +
             "OR a.email IN (:emails)")
     List<AccountEntity> findByUsernamesOrEmails(@Param("usernames") Set<String> usernames,
-                                                          @Param("emails") Set<String> emails);
+                                                @Param("emails") Set<String> emails);
 
     Optional<AccountEntity> findByUsername(String username);
 

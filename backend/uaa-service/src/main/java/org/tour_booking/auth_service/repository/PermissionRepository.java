@@ -12,12 +12,12 @@ import java.util.Set;
 @Repository
 public interface PermissionRepository extends JpaRepository<PermissionEntity, Long> {
 
-    Optional<PermissionEntity> findByName(String name);
+    Optional<PermissionEntity> findByName(@Param("name") String name);
 
     @Query("SELECT p FROM PermissionEntity p " +
             "WHERE p.name IN (:names)")
     Set<PermissionEntity> findAllByNames(@Param("names") Set<String> names);
 
-    void deleteByName(String name);
+    void deleteByName(@Param("name") String name);
 
 }
