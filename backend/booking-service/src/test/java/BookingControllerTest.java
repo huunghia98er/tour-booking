@@ -2,8 +2,8 @@ import api.ApiResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.tour_booking.booking_service.constant.BookingStatus;
 import org.tour_booking.booking_service.controller.BookingController;
 import org.tour_booking.booking_service.models.entity.Booking;
@@ -24,9 +24,9 @@ import static org.mockito.Mockito.when;
  */
 
 class BookingControllerTest {
-    @MockBean
+    @Mock
     private BookingService bookingService;
-    @MockBean
+    @Mock
     private BookingRepository bookingRepository;
     @InjectMocks
     private BookingController bookingController;

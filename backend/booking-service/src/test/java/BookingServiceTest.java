@@ -1,12 +1,12 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.tour_booking.booking_service.models.entity.Booking;
 import org.tour_booking.booking_service.models.request.BookingRequest;
 import org.tour_booking.booking_service.repository.BookingRepository;
-import org.tour_booking.booking_service.service.BookingService;
+import org.tour_booking.booking_service.service.BookingServiceImpl;
 import org.tour_booking.booking_service.service.KafkaService;
 import org.tour_booking.booking_service.utils.BookingUtils;
 
@@ -24,14 +24,14 @@ import static org.mockito.Mockito.when;
  */
 
 class BookingServiceTest {
-    @MockBean
+    @Mock
     private BookingRepository bookingRepository;
-    @MockBean
+    @Mock
     private BookingUtils bookingUtils;
-    @InjectMocks
-    private BookingService bookingService;
-    @MockBean
+    @Mock
     private KafkaService kafkaService;
+    @InjectMocks
+    private BookingServiceImpl bookingService;
 
     @BeforeEach
     void setUp() {
