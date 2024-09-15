@@ -36,7 +36,7 @@ public class BookingController {
     }
 
     @PatchMapping("/{bookingCode}/cancel")
-    public ApiResponse<String> updateBooking(@PathVariable String bookingCode) {
+    public ApiResponse<String> cancelBooking(@PathVariable String bookingCode) {
         boolean isUpdated = bookingService.cancelBooking(bookingCode);
 
         return isUpdated ?
